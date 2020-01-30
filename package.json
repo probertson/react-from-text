@@ -1,0 +1,27 @@
+{
+  "name": "react-from-text",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Create React elements from a string containing markup and/or placeholders. Useful for creating nicely-structured translation strings.",
+  "keywords": [
+    "react",
+    "translation",
+    "strings",
+    "tags",
+    "i18n",
+    "internationalization"
+  ],
+  "author": "Paul Robertson (paul@probertson.com)",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/probertson/react-from-text.git"
+  },
+  "bugs": {
+    "url": "https://github.com/probertson/react-from-text/issues"
+  },
+  "homepage": "https://github.com/probertson/react-from-text#readme"
+}
