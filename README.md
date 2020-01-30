@@ -37,7 +37,7 @@ without changing the order of the chunks.
 A better way is to give the translators a full sentence, including markers for the HTML tags and the placeholder
 variable -- something like:
 
-> You will <b>win a %(prizeName)s</b> if you <link>Click Here</link>!
+> You will &lt;b>win a %(prizeName)s&lt;/b> if you &lt;link>Click Here&lt;/link>!
 
 That's where this library comes in:
 
