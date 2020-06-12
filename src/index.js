@@ -65,7 +65,7 @@ function parseNext(message, context) {
 }
 
 function parseNextToken(message) {
-  const match = message.match(/\<\/?(\w+?)(\s*\/)?\>/);
+  const match = message.match(/<\/?(\w+?)(\s*\/)?>/);
 
   // Text until tag
   if (match && match.index !== 0) {
@@ -92,9 +92,9 @@ function parseNextToken(message) {
 }
 
 function getTagInfo(string) {
-  const openingTag = string.match(/\<(\w+)\>/i);
-  const closingTag = string.match(/\<\/(\w+)\>/i);
-  const selfClosingTag = string.match(/\<(\w+)\s*\/\>/i);
+  const openingTag = string.match(/<(\w+)>/i);
+  const closingTag = string.match(/<\/(\w+)>/i);
+  const selfClosingTag = string.match(/<(\w+)\s*\/>/i);
 
   if (openingTag) {
     return { name: openingTag[1], kind: TOKENS.OPEN };
@@ -169,7 +169,7 @@ function substituteTags(message, placeholders, context) {
       const { name, children } = node.value;
 
       invariant(
-        placeholders.hasOwnProperty(name),
+        Object.prototype.hasOwnProperty.call(placeholders, name),
         createError(`missing placeholder value <${name}>`, context)
       );
 
