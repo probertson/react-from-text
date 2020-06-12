@@ -93,7 +93,7 @@ function fromText(text, placeholders)
 ## Credits/Acknowledgements
 
 v1.0.0 (2020-06-11):
-For v1.0.0 the core was rewritten by Taylor Everding ([@taylor1791](https://github.com/taylor1791))) to use a cleaner AST-based parsing approach.
+For v1.0.0 the core was rewritten by Taylor Everding ([@taylor1791](https://github.com/taylor1791)) to use a cleaner AST-based parsing approach.
 
 v0.1.0
 The core of this package was originally a utility (`format-message/react`) in
