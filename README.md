@@ -92,6 +92,10 @@ function fromText(text, placeholders)
 
 ## Credits/Acknowledgements
 
+v1.0.0 (2020-06-11):
+For v1.0.0 the core was rewritten by Taylor Everding ([@taylor1791](https://github.com/taylor1791)) to use a cleaner AST-based parsing approach.
+
+v0.1.0
 The core of this package was originally a utility (`format-message/react`) in
 [format-message](https://github.com/format-message/format-message/packages/format-message), with initial work by
 [@vanwagonet](https://github.com/vanwagonet) and [contributions by Paul Robertson (me)](https://github.com/format-message/format-message/pull/117).
@@ -103,4 +107,4 @@ just using the utility to replace tags in strings with React components -- so it
 package. I had also made some React-specific improvements within a private codebase (for example, allowing the same tag
 name to be used multiple times in a translation string). Those improvements are also included in this package.
 
-My work on this package was funded by my employer, HireVue, Inc. ([@hirevue](https://github.com/hirevue)). It's a great place to work -- check us out!
+My work (and Taylor's work) on this package was funded by my employer, HireVue, Inc. ([@hirevue](https://github.com/hirevue)). It's a great place to work -- check us out!
