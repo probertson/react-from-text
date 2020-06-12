@@ -57,5 +57,7 @@
     "react": "^16.0.0",
     "sprintf-js": "^1.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "invariant": "^2.2.4"
+  }
 }
