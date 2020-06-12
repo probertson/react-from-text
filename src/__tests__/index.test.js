@@ -204,6 +204,26 @@ describe('fromText', () => {
     ).toBe(true);
   });
 
+  it('supports an html-tag-like substitution value', () => {
+    const formatted = shallow(
+      <div>
+        {fromText('Hello %(world)s<span>Foo</span>', {
+          world: '<b />',
+          span: <span />,
+        })}
+      </div>
+    );
+
+    expect(
+      formatted.equals(
+        <div>
+          {'Hello <b />'}
+          <span>Foo</span>
+        </div>
+      )
+    ).toBe(true);
+  });
+
   it('treats invalid tags as text', () => {
     const formatted = shallow(<div>{fromText('<Hello World>', {})}</div>);
 

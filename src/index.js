@@ -16,8 +16,7 @@ import invariant from 'invariant';
 export default function fromText(message, placeholders) {
   const context = { string: message };
 
-  const sprintfed = sprintf(message, placeholders);
-  const ast = parseFragment(sprintfed, context);
+  const ast = parseFragment(message, context);
   const children = substituteTags(ast, placeholders, context);
 
   return children.length === 1 ? children[0] : children;
@@ -192,7 +191,7 @@ function substituteTags(message, placeholders, context) {
     }
 
     /* node.kind === NODES.TEXT */
-    return node.value;
+    return sprintf(node.value, placeholders);
   });
 }
 
