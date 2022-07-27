@@ -69,8 +69,8 @@ function parseNextToken(message) {
 
   // Text until tag
   if (match && match.index !== 0) {
-    const value = message.substr(0, match.index);
-    const remaining = message.substr(match.index);
+    const value = message.substring(0, match.index);
+    const remaining = message.substring(match.index);
 
     return {
       kind: TOKENS.TEXT,
@@ -82,7 +82,7 @@ function parseNextToken(message) {
   // Tag
   if (match && match.index === 0) {
     const { name, kind } = getTagInfo(match[0]);
-    const remaining = message.substr(match[0].length);
+    const remaining = message.substring(match[0].length);
 
     return { kind, name, remaining };
   }
@@ -131,10 +131,8 @@ function parseUntilClosing(tagName, message, context) {
         },
       });
     } else if (kind === TOKENS.OPEN) {
-      const {
-        children: nestedChildren,
-        remaining: nestedRemaining,
-      } = parseUntilClosing(name, remaining, context);
+      const { children: nestedChildren, remaining: nestedRemaining } =
+        parseUntilClosing(name, remaining, context);
 
       message = nestedRemaining;
       children.push({
