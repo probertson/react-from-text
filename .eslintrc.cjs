@@ -9,11 +9,10 @@ module.exports = {
             env: { jest: true },
         },
     ],
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     extends: [
         'eslint:recommended',
         'prettier',
-        'prettier/react',
     ],
     parserOptions: {
         ecmaFeatures: {
