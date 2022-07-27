@@ -19,6 +19,7 @@
     "test": "jest",
     "dist": "rollup --config rollup.config.js",
     "prepublishOnly": "yarn build",
+    "release": "npx release-it",
     "prettier": "./node_modules/.bin/prettier --config ./.prettierrc.js --write src/**/*.js"
   },
   "repository": {
@@ -29,6 +30,9 @@
     "url": "https://github.com/probertson/react-from-text/issues"
   },
   "homepage": "https://github.com/probertson/react-from-text#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.13.0",
