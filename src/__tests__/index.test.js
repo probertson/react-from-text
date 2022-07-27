@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import fromText from '../index';
 
@@ -10,67 +10,71 @@ describe('fromText', () => {
   });
 
   it('substitutes self closing tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>{fromText('Hello, <span/>World!', { span: <span /> })}</div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span />
+          Hello, 
+          <span />
           World!
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('supports trailing whitespace in self-closing tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>{fromText('Hello, <span />World!', { span: <span /> })}</div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span />
+          Hello, 
+          <span />
           World!
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('supports numbers in self closing tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>{fromText('Hello, <break2 />World!', { break2: <br /> })}</div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <br />
+          Hello, 
+          <br />
           World!
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('substitutes empty tag pairs', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>{fromText('Hello, <span></span>World!', { span: <span /> })}</div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span></span>
+          Hello, 
+          <span />
           World!
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('treats nested text as strings', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>
         {fromText('Hello, <span>World!</span>', {
           span: <span />,
@@ -78,17 +82,20 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span>World!</span>
+          Hello, 
+          <span>
+            World!
+          </span>
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('maintains props on placeholders', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>
         {fromText('Hello, <span>World</span>!', {
           span: <span style={{ fontWeight: 'bold' }} />,
@@ -96,17 +103,23 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span style={{ fontWeight: 'bold' }}>World</span>!
+          Hello, 
+          <span
+            style="font-weight: bold;"
+          >
+            World
+          </span>
+          !
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('substitutes sibling tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>
         {fromText('<div>Hello</div>, <span>World</span>!', {
           span: <span />,
@@ -115,17 +128,24 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          <div>Hello</div>, <span>World</span>!
+          <div>
+            Hello
+          </div>
+          , 
+          <span>
+            World
+          </span>
+          !
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('substitutes both twin tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>
         {fromText('<span>Hello</span>, <span>World</span>!', {
           span: <span />,
@@ -133,17 +153,24 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          <span>Hello</span>, <span>World</span>!
+          <span>
+            Hello
+          </span>
+          , 
+          <span>
+            World
+          </span>
+          !
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
-  it('substitutes named sprintf placeholders inside tag characters', () => {
-    const formatted = shallow(
+  it('substitutes named sprintf placeholders inside tags', () => {
+    const { asFragment } = render(
       <div>
         {fromText('Hello, <span>%(name)s!</span>', {
           name: 'World',
@@ -152,17 +179,20 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello, <span>World!</span>
+          Hello, 
+          <span>
+            World!
+          </span>
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('substitutes nested tags', () => {
-    const formatted = shallow(
+    const { asFragment } = render(
       <div>
         {fromText('<span><span>Hello</span>, World!</span>', {
           span: <span />,
@@ -170,19 +200,22 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
           <span>
-            <span>Hello</span>, World!
+            <span>
+              Hello
+            </span>
+            , World!
           </span>
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
-  it('substitutes nested self closing', () => {
-    const formatted = shallow(
+  it('substitutes nested self closing tags', () => {
+    const { asFragment } = render(
       <div>
         {fromText('Hello, <span><br/>World!</span>', {
           span: <span />,
@@ -191,21 +224,21 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          Hello,{' '}
+          Hello, 
           <span>
             <br />
             World!
           </span>
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
-  it('supports an html-tag-like substitution value', () => {
-    const formatted = shallow(
+  it('supports an html tag-like substitution value', () => {
+    const { asFragment } = render(
       <div>
         {fromText('Hello %(world)s<span>Foo</span>', {
           world: '<b />',
@@ -214,20 +247,28 @@ describe('fromText', () => {
       </div>
     );
 
-    expect(
-      formatted.equals(
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
         <div>
-          {'Hello <b />'}
-          <span>Foo</span>
+          Hello &lt;b /&gt;
+          <span>
+            Foo
+          </span>
         </div>
-      )
-    ).toBe(true);
+      </DocumentFragment>
+    `);
   });
 
   it('treats invalid tags as text', () => {
-    const formatted = shallow(<div>{fromText('<Hello World>', {})}</div>);
+    const { asFragment } = render(<div>{fromText('<Hello World>', {})}</div>);
 
-    expect(formatted.equals(<div>&lt;Hello World&gt;</div>)).toBe(true);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div>
+          &lt;Hello World&gt;
+        </div>
+      </DocumentFragment>
+    `);
   });
 
   it('informs if they are missing a placeholder tag', () => {

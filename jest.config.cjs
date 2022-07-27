@@ -1,3 +1,3 @@
 module.exports = {
-  setupFiles: ['./testSetup.cjs'],
+  testEnvironment: 'jsdom',
 };
