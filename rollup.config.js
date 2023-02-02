@@ -1,23 +1,20 @@
-import resolve from '@rollup/plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
-import replace from '@rollup/plugin-replace';
+import babel from '@rollup/plugin-babel';
 
-export default {
-  input: 'src/index.js',
-  output: {
-    file: 'dist/react-from-text.min.js',
-    format: 'esm',
+import pkg from './package.json';
+
+export default [
+  {
+    input: 'src/index.js',
+    output: [
+      { file: pkg.main, format: 'cjs', exports: 'auto' },
+      { file: pkg.module, format: 'es' },
+    ],
+    external: ['invariant', 'react', 'sprintf-js'],
+    plugins: [
+      babel({
+        exclude: 'node_modules/**',
+        babelHelpers: 'bundled',
+      }),
+    ],
   },
-  external: ['invariant', 'react', 'sprintf-js'],
-  plugins: [
-    resolve(),
-    replace({
-      'process.env.NODE_ENV': '"production"',
-    }),
-    babel({
-      exclude: 'node_modules/**',
-    }),
-    terser(),
-  ],
-};
+];
